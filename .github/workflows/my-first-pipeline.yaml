@@ -10,12 +10,15 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    steps:
+steps:
     - name: Step 1 - Check out repository code files
       uses: actions/checkout@v4
 
-    - name: Step 2 - Execute an automated code sanity test
+    - name: Step 2 - Install Python runtime
+      uses: actions/setup-python@v5
+      with:
+        python-style: '3.10'
+
+    - name: Step 3 - Execute automated pytest validations
       run: |
-        echo "Initializing automated tests..."
-        echo "Validating syntax configuration..."
-        echo "Congratulations Prakash! Your automated test step passed successfully!"
+        python -m pytest test_app.py
