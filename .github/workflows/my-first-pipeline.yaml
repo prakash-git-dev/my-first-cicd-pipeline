@@ -1,24 +1,27 @@
 name: My First Automated CI Pipeline
 
-# 1. The Trigger Event Rule
 on:
   push:
     branches: [ "main" ]
 
-# 2. The Task Execution Logic
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
- steps:
+    steps:
     - name: Step 1 - Check out repository code files
       uses: actions/checkout@v4
 
     - name: Step 2 - Install Python runtime
       uses: actions/setup-python@v5
       with:
-        python-style: '3.10'
+        python-version: '3.10' # <-- Corrected from python-style
 
-    - name: Step 3 - Execute automated pytest validations
+    - name: Step 3 - Install testing dependencies
       run: |
-        python -m pytest test_app.py
+        python -m pip install --upgrade pip
+        pip install pytest
+
+    - name: Step 4 - Execute automated pytest validations
+      run: |
+        pytest test_app.py
