@@ -1,0 +1,21 @@
+name: My First Automated CI Pipeline
+
+# 1. The Trigger Event Rule
+on:
+  push:
+    branches: [ "main" ]
+
+# 2. The Task Execution Logic
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Step 1 - Check out repository code files
+      uses: actions/checkout@v4
+
+    - name: Step 2 - Execute an automated code sanity test
+      run: |
+        echo "Initializing automated tests..."
+        echo "Validating syntax configuration..."
+        echo "Congratulations Prakash! Your automated test step passed successfully!"
