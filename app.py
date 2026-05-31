@@ -1,3 +1,4 @@
 def calculate_tax(salary):
-    # Simple corporate tax logic: 20% flat deduction
-    return salary * 0.20
+    # BROKEN LOGIC: This will break our test!
+    return salary - 0.20
+
