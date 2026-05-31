@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # STAGE 1: Run the Quality Validation Tests
+  # STAGE 1: Run Quality Validation Tests
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -26,18 +26,29 @@ jobs:
       run: |
         pytest test_app.py
 
-  # STAGE 2: Compile the Docker Container (Runs ONLY if Stage 1 passes!)
+  # STAGE 2: Build and Securely Push to Docker Hub
   build-docker-image:
     runs-on: ubuntu-latest
-    needs: build-and-test # <-- This creates the strict chronological dependency!
+    needs: build-and-test
     steps:
     - name: Check out repository code files
       uses: actions/checkout@v4
 
+    - name: Log in to Docker Hub Securely
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
     - name: Set up Docker Buildx Engine
       uses: docker/setup-buildx-action@v3
 
-    - name: Compile and Verify Container Build
-      run: |
-        docker build -t my-automated-flask-app:${{ github.sha }} .
-        echo "Success! Docker image built cleanly using code commit version token ${{ github.sha }}"
+    - name: Compile and Push Container to Registry
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        # REPLACE 'your-dockerhub-username' with your actual username string below:
+        tags: |
+          prakashgayathri/my-automated-flask-app:latest
+          prakashgayathri/my-automated-flask-app:${{ github.sha }}
