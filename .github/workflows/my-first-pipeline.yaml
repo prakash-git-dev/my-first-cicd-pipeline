@@ -51,13 +51,16 @@ jobs:
       with:
         version: 'latest'
 
-    - name: Authorize and Ping Cluster Control Plane
+    - name: Check out repository code files
+      uses: actions/checkout@v4 # <-- Required so the runner can see the flask-deployment.yaml file!
+
+    - name: Authorize and Deploy Manifest to Cluster
       run: |
         kubectl config set-cluster staging-cluster --server=${{ secrets.KUBE_SERVER }} --insecure-skip-tls-verify=true
         kubectl config set-credentials github-actions --token=${{ secrets.KUBE_TOKEN }}
         kubectl config set-context staging-context --cluster=staging-cluster --user=github-actions
         kubectl config use-context staging-context
-        
-        echo "Testing communication bridge connection..."
-        kubectl get nodes
+
+        echo "Deploying application containers..."
+        kubectl apply -f flask-deployment.yaml
 
