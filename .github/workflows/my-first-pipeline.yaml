@@ -45,7 +45,7 @@ jobs:
   deploy-to-kubernetes:
     runs-on: ubuntu-latest
     needs: build-docker-image # <-- Strict chronological gateway block!
-  steps:
+    steps:
     - name: Download and Configure Kubectl
       uses: azure/setup-kubectl@v4
       with:
