@@ -67,4 +67,15 @@ jobs:
 
         echo "Deploying application containers..."
         kubectl apply -f flask-deployment.yaml
-
+  
+    - name: Monitor Rollout Status and Auto-Rollback on Failure
+      if: always()
+      run: |
+        echo "Monitoring deployment health for 60 seconds..."
+        if ! kubectl rollout status deployment/flask-app-deployment --timeout=60s; then
+          echo "🚨 CRITICAL: Deployment failed health checks! Triggering automatic rollback..."
+          kubectl rollout undo deployment/flask-app-deployment
+          exit 1
+        else
+          echo "✅ SUCCESS: New version is stable and running!"
+        fi
