@@ -23,8 +23,8 @@ spec:
         readinessProbe:
           exec:
             command: 
-            - pgrep
-            - -f
-            - app.py
-          initialDelaySeconds: 5
+            - sh
+            - -c
+            - cat /proc/1/cmdline | grep -q python
+          initialDelaySeconds: 10
           periodSeconds: 5
