@@ -21,8 +21,10 @@ spec:
         ports:
         - containerPort: 5000
         readinessProbe:
-          httpGet:
-            path: /
-            port: 5000
+          exec:
+            command: 
+            - pgrep
+            - -f
+            - app.py
           initialDelaySeconds: 5
           periodSeconds: 5
