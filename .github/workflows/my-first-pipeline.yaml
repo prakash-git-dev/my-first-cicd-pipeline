@@ -62,7 +62,7 @@ jobs:
         kubectl config use-context staging-context
 
         echo "Dynamically injecting Commit SHA tag into manifest ..."
-        sed -i "s/IAMGE_TAG/${{ github.sha }}/g" flask-deployment.yaml
+        sed -i "s/IMAGE_TAG/${{ github.sha }}/g" flask-deployment.yaml
 
 
         echo "Deploying application containers..."
