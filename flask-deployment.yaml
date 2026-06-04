@@ -27,6 +27,9 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "250m"
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
         envFrom:
         - secretRef:
             name: flask-app-secrets
