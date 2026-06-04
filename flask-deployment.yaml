@@ -33,6 +33,8 @@ spec:
         envFrom:
         - secretRef:
             name: flask-app-secrets
+        - configMapRef:
+            name: flask-app-config
         readinessProbe:
           exec:
             command: 
