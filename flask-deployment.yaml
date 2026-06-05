@@ -37,7 +37,7 @@ spec:
             name: flask-app-config
         readinessProbe:
           exec:
-            command: 
+            command:
             - sh
             - -c
             - pgrep -f python
