@@ -43,3 +43,14 @@ spec:
             - test -f app.py
           initialDelaySeconds: 10
           periodSeconds: 5
+      - name: proxy-sidecar
+        image: nginx:alpine
+        ports:
+          - containerPort: 80
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "50m"
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
