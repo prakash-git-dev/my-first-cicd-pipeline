@@ -40,6 +40,6 @@ spec:
             command:
             - sh
             - -c
-            - pgrep -f python
+            - "import os; print('Ready') if os.path.exists('app.py') else exit(1)"
           initialDelaySeconds: 10
           periodSeconds: 5
