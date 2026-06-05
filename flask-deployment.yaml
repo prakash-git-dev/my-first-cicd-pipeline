@@ -40,6 +40,6 @@ spec:
             command:
             - sh
             - -c
-            - "import os; print('Ready') if os.path.exists('app.py') else exit(1)"
+            - test -f app.py
           initialDelaySeconds: 10
           periodSeconds: 5
