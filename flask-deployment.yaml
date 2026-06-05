@@ -40,6 +40,6 @@ spec:
             command: 
             - sh
             - -c
-            - cat /proc/*/cmdline | grep -q python
+            - pgrep -f python
           initialDelaySeconds: 10
           periodSeconds: 5
