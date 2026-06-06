@@ -46,7 +46,7 @@ spec:
       - name: proxy-sidecar
         image: nginx:alpine
         ports:
-          - containerPort: 80
+        - containerPort: 80
         resources:
           requests:
             memory: "32Mi"
@@ -54,3 +54,12 @@ spec:
           limits:
             memory: "64Mi"
             cpu: "100m"
+        volumeMounts:
+        - name: proxy-config-volume
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+
+      volumes:
+      - name: proxy-config-volume
+        configMap:
+          name: nginx-proxy-config
