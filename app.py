@@ -31,6 +31,7 @@ if __name__ == "__main__":
     
     # 🏎️ Spin up the background thread before starting the web server
     worker_thread = threading.Thread(target=background_worker, daemon=True)
+    worker_thread.daemon = True
     worker_thread.start()
     
     # 📡 Start our web service listener on port 5000
